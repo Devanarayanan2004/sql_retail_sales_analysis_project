@@ -62,12 +62,14 @@ WHERE
 
 Retrieve all columns for sales made on '2022-11-05':
 
-SQLSELECT * FROM retail_sales
+SQL
+SELECT * FROM retail_sales
 WHERE sale_date = '2022-11-05';
 
 Transactions where category is 'Clothing' and quantity ≥ 4 in Nov-2022:
 
-SQLSELECT *
+SQL
+SELECT *
 FROM retail_sales
 WHERE category = 'Clothing'
   AND TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'
@@ -75,7 +77,8 @@ WHERE category = 'Clothing'
 
 Total sales and order count for each category:
 
-SQLSELECT 
+SQL
+SELECT 
     category,
     SUM(total_sale) AS net_sale,
     COUNT(*) AS total_orders
@@ -84,18 +87,21 @@ GROUP BY category;
 
 Average age of customers who purchased from 'Beauty' category:
 
-SQLSELECT ROUND(AVG(age), 2) AS avg_age
+SQL
+SELECT ROUND(AVG(age), 2) AS avg_age
 FROM retail_sales
 WHERE category = 'Beauty';
 
 Transactions with total_sale > 1000:
 
-SQLSELECT * FROM retail_sales
+SQL
+SELECT * FROM retail_sales
 WHERE total_sale > 1000;
 
 Total transactions by gender in each category:
 
-SQLSELECT 
+SQL
+SELECT 
     category,
     gender,
     COUNT(*) AS total_trans
@@ -105,7 +111,8 @@ ORDER BY category;
 
 Average sale per month + best selling month each year:
 
-SQLSELECT 
+SQL
+SELECT 
     year,
     month,
     avg_sale
@@ -123,7 +130,8 @@ WHERE rank = 1;
 
 Top 5 customers by total sales:
 
-SQLSELECT 
+SQL
+SELECT 
     customer_id,
     SUM(total_sale) AS total_sales
 FROM retail_sales
@@ -133,7 +141,8 @@ LIMIT 5;
 
 Number of unique customers per category:
 
-SQLSELECT 
+SQL
+SELECT 
     category,    
     COUNT(DISTINCT customer_id) AS cnt_unique_cs
 FROM retail_sales
@@ -141,7 +150,8 @@ GROUP BY category;
 
 Number of orders by shift (Morning <12, Afternoon 12–17, Evening >17):
 
-SQLWITH hourly_sale AS (
+SQL
+WITH hourly_sale AS (
     SELECT *,
         CASE
             WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
